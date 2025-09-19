@@ -12032,7 +12032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeDisaplay: {fileID: 621435428}
   timeDisaplayPosition: {fileID: 792366000}
-  next: 1
+  next: 0
   back: 0
   start: 0
   instructionReplay: 0
