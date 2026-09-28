@@ -4,8 +4,13 @@ using UnityEngine;
 using TMPro;
 public class comandColliders : MonoBehaviour
 {
+    //public TextMeshProUGUI colliderInfo;
     private void OnTriggerEnter(Collider other)
     {
+        /*if (other.transform.tag == "hand")
+        {
+            colliderInfo.text = $"hand detected in {transform.name}";
+        }*/
         if (other.transform.tag == "hand" && transform.name == "topCollider")
         {
             gameEvents.current.TopEnter();
@@ -41,6 +46,10 @@ public class comandColliders : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
+        /*if (other.transform.tag == "hand")
+        {
+            colliderInfo.text = $"no hand detected in {transform.name}";
+        }*/
         if (other.transform.tag == "hand" && transform.name == "topCollider")
         {
             gameEvents.current.TopExit();

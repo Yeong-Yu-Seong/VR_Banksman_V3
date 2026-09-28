@@ -28,6 +28,11 @@ public class actions : MonoBehaviour
 
     public GameObject handFrontFaceL, handFrontFaceR, handBackFaceL, handBackFaceR, handUpFaceL, handUpFaceR, handDownFaceR, handDownFaceL;
 
+    /// <summary>
+    /// Coroutine to handle the front combo sequence
+    /// </summary>
+    private Coroutine frontComboCoroutine;
+
     private void Start()
     {
         chracterController = GetComponent<CharacterController>();
@@ -147,8 +152,11 @@ public class actions : MonoBehaviour
             {
                 if (frontComboNum == 0)
                     awaytowardsWhistle = false;
-                StopCoroutine(frontComboWindow());
-                StartCoroutine(frontComboWindow());
+                if (frontComboCoroutine != null)
+                {
+                    StopCoroutine(frontComboCoroutine);
+                }
+                frontComboCoroutine = StartCoroutine(frontComboWindow());
                 frontComboNum++;
                 if (isPalmFrontL == 1 && isPalmFrontR == 1)
                 {
@@ -161,16 +169,23 @@ public class actions : MonoBehaviour
             }
             else if (isFar == 2)
             {
-                StopCoroutine(frontComboWindow());
-                StartCoroutine(frontComboWindow());
+                if (frontComboCoroutine != null)
+                {
+                    StopCoroutine(frontComboCoroutine);
+                }
+                frontComboCoroutine = StartCoroutine(frontComboWindow());
                 frontComboNum++;
             }
             if (frontComboNum >= 4 && awaytowardsWhistle)
             {
                 if (isfront && awaytowardsWhistle)
-                    gameEvents.current.toMe();
-                if (!isfront && awaytowardsWhistle)
+                {   
                     gameEvents.current.awayMe();
+                }
+                else if (!isfront && awaytowardsWhistle)
+                {
+                    gameEvents.current.toMe();
+                }
                 frontComboNum = 0;
                 awaytowardsWhistle = false;
             }
@@ -181,6 +196,7 @@ public class actions : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         frontComboNum = 0;
         awaytowardsWhistle = false;
+        frontComboCoroutine = null;
     }
     void closeExit()
     {
@@ -470,7 +486,7 @@ public class actions : MonoBehaviour
         leftArrow.SetActive(false);
     }
     void rightEnter()
-    {
+        {
         RHand.text = "1";
         
         isRIn = true;

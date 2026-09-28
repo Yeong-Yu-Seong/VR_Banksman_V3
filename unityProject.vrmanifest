@@ -2,10 +2,10 @@
   "source": "Unity",
   "applications": [
     {
-      "app_key": "application.generated.unity.banksmantrainingvr.exe",
+      "app_key": "application.generated.unity.banksmanvr_1.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "D:\\unity2024sept\\Dylan'sWork\\VR Banksman Training Simulator\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "C:\\Banksman Update\\UPDATED_VR_Banksman\\VR_Banksman_Training_Simulator\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "BanksmanVR_1 [Testing]"

@@ -53,11 +53,11 @@ public class vehicleAction : MonoBehaviour
     }
     void moveCarForward()
     {
-        displayText("Travel Away From Me");
+        displayText("Travel To Me");
     }
     void moveCarBackwards()
     {
-        displayText("Travel To Me");
+        displayText("Travel Away From Me");
     }
     void warningTooCLose(bool isWarned)
     {

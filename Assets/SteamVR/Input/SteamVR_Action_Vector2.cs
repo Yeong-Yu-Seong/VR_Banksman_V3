@@ -295,8 +295,8 @@ namespace Valve.VR
 
             if (actionData_size == 0)
                 actionData_size = (uint)Marshal.SizeOf(typeof(InputAnalogActionData_t));
-        }
-
+        } 
+        
         /// <summary>
         /// Removes all listeners, useful for dispose pattern
         /// </summary>

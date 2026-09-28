@@ -51,7 +51,7 @@ public class whistling : MonoBehaviour
         beepDuration += 1;
         if (beepDuration > 50)
         {
-            gameEvents.current.RWhistleButtonHold();
+            gameEvents.current.LWhistleButtonHold();
         }
 
     }

@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/tutortial.unity
+    path: Assets/Scenes/tutorial.unity
     guid: 96c4d3be4f41fe14a9340f758fa00e9f
   - enabled: 1
     path: Assets/Scenes/forklift.unity
@@ -15,7 +15,11 @@ EditorBuildSettings:
     path: Assets/Scenes/truckTrailer.unity
     guid: 020180dd5a2fc404cb0d09ef921835a6
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 913a196e8aaedc849838631d5dc80bbe,
+      type: 2}
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 774b6ea21ed06b9418385184a9dd2f8a,
+      type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 1840e87370c181943ae06dfd041ef0e0,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2d4f767e2c77caf46a1ed9aa377832fc,
       type: 2}

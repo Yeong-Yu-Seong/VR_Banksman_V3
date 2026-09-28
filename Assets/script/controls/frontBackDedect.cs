@@ -32,7 +32,7 @@ public class frontBackDedect : MonoBehaviour
         if (isFacing == 1)
         {
             if (isbackNotBlindSpot || (isbackNotBlindSpot && isfrontNotBlindSpot))
-                gameEvents.current.carBackward();
+                gameEvents.current.carForward();
             else if (isfrontNotBlindSpot)
                 gameEvents.current.giveInstruction("Driver cannot see your hands");
         }
@@ -40,7 +40,7 @@ public class frontBackDedect : MonoBehaviour
         else if (isFacing == 2)
         {
             if (isfrontNotBlindSpot || (isbackNotBlindSpot && isfrontNotBlindSpot))
-                gameEvents.current.carForward();
+                gameEvents.current.carBackward();
             else if (isbackNotBlindSpot || !(isbackNotBlindSpot && isfrontNotBlindSpot))
                 gameEvents.current.giveInstruction("Driver cannot see your hands");
         }
@@ -51,7 +51,7 @@ public class frontBackDedect : MonoBehaviour
     void triggerToMe()
     {
         /*moving front*/
-        if (isFacing == 1)
+        if (isFacing == 2)
         {
             if (isbackNotBlindSpot && !isfrontNotBlindSpot)
                 gameEvents.current.giveInstruction("Go to front of vehicle");
@@ -61,7 +61,7 @@ public class frontBackDedect : MonoBehaviour
                 gameEvents.current.carForward();
         }
         /*moving back*/
-        else if (isFacing == 2)
+        else if (isFacing == 1)
         {
             if (isbackNotBlindSpot && !isfrontNotBlindSpot)
                 gameEvents.current.giveInstruction("Driver cannot see your hands");

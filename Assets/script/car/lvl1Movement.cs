@@ -260,7 +260,7 @@ public class lvl1Movement : MonoBehaviour
         {
             if (forkIsMoving && forkObject.transform.position.y >= 0.06547427f && forkObject.transform.position.y <= 3)
             {
-                Debug.Log("moving");
+                //Debug.Log("moving");
                 forkStopAudioCanPlayed = true;
                 if (forkDirection ==1)
                 {

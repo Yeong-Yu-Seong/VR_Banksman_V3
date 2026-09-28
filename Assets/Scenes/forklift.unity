@@ -31992,7 +31992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df48df7ad66e77a4d9afa9cb93c08caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasLost: 1
+  hasLost: 0
   winInteract: {fileID: 2117616747}
 --- !u!114 &1242719408
 MonoBehaviour:
