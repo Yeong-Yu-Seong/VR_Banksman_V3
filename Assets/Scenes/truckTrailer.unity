@@ -27350,7 +27350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1315610869}
   m_Layer: 0
-  m_Name: truckFollow
+  m_Name: truck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
