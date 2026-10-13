@@ -16,6 +16,7 @@ public class lvl2Movement : MonoBehaviour
     public Animator CarAni;
     public GameObject NavCut;
     public NavMeshAgent banksman2;
+    public List<GameObject> stopAreas =  new List<GameObject>();
 
     void notStarted()
     {
@@ -89,10 +90,17 @@ public class lvl2Movement : MonoBehaviour
         for (int i = 0; i < goalDisplays.Count; i++)
         {
             goalDisplays[i].SetActive(false);
+            stopAreas[i].SetActive(false);
             if (goalDisplays[i] != null && i == distinationNum)
+            {
                 goalDisplays[i].SetActive(true);
+                stopAreas[i].SetActive(true);
+            }
             else
+            {
                 goalDisplays[goalDisplays.Count - 1].SetActive(true);
+                stopAreas[stopAreas.Count - 1].SetActive(true);
+            }
         }
         if (distinationNum == 1 && !isMoving)
             banksman2.SetDestination(GameObject.Find("banksman2StopRoadTarget").transform.position);

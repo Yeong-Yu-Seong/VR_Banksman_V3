@@ -9,11 +9,13 @@ public class lvl1Movement : MonoBehaviour
 
     public List<GameObject> destinations = new List<GameObject>();
     public int distinationNum;
+    public List<GameObject> stopAreas = new List<GameObject>();
     public NavMeshAgent car;
     public int maxSpeed;
     public int slowSpeed;
     public int acceleration;
     public NavMeshAgent innerCarNav;
+    public GameObject forkHeightCheck;
     public GameObject SuddenNPC;    
     Vector3 EStopPositioninnerCar = new Vector3();
     public Animator frontWheels;
@@ -37,6 +39,7 @@ public class lvl1Movement : MonoBehaviour
         gameEvents.current.onForkUp += moveFork;
         gameEvents.current.onCanSeePlayer += playerInView;
         gameEvents.current.onForkIsInPlace += forkIsPlaced;
+        forkHeightCheck.SetActive(false);
     }
     void startCar()
     {
@@ -194,6 +197,7 @@ public class lvl1Movement : MonoBehaviour
         if (canSee && oppIsStarted && !forkisInPlace)
         {
             forkIsMoving = true;
+            forkHeightCheck.SetActive(true);
             if (forkIsUp != isUp)
                 StopCoroutine(forkUpDownDelay(isUp, false));
             forkIsUp = false;
@@ -232,21 +236,31 @@ public class lvl1Movement : MonoBehaviour
             gameEvents.current.giveInstruction("stop opperation first");
     }
 
+    public List<GameObject> playerDisplayStands = new List<GameObject>();
     void FixedUpdate()
     {
         for (int i = 0; i < goalDisplays.Count; i++)
         {
             goalDisplays[i].SetActive(false);
             if (goalDisplays[i] != null && i == distinationNum)
+            {
                 goalDisplays[i].SetActive(true);
+                stopAreas[i].SetActive(true);
+            }
             else if (distinationNum >= 4 )
             {
                 goalDisplays[goalDisplays.Count - 1].SetActive(true);
+                stopAreas[stopAreas.Count - 1].SetActive(true);
+            }
+            else
+            {
+                stopAreas[i].SetActive(false);
             }
         }
         if (forkisInPlace && !isFinalForkDown && !forkIsMoving)
         {
             forkIsUp = true;
+            forkHeightCheck.SetActive(false);
         }
         else if (isFinalForkDown)
         {
@@ -300,6 +314,7 @@ public class lvl1Movement : MonoBehaviour
             }
             if (distinationNum == 3)
             {
+                playerDisplayStands[1].SetActive(true);
                 if (!isMoving)
                     StartCoroutine(part3Breaks());
             }

@@ -29,9 +29,10 @@ public class actions : MonoBehaviour
     public GameObject handFrontFaceL, handFrontFaceR, handBackFaceL, handBackFaceR, handUpFaceL, handUpFaceR, handDownFaceR, handDownFaceL;
 
     /// <summary>
-    /// Coroutine to handle the front combo sequence
+    /// Coroutines
     /// </summary>
     private Coroutine frontComboCoroutine;
+    private Coroutine forkComboCoroutine;
 
     private void Start()
     {
@@ -48,6 +49,8 @@ public class actions : MonoBehaviour
         gameEvents.current.onPalmDownR += RPalmIsDown;
         gameEvents.current.onDownEnter += downEnter;
         gameEvents.current.onDownExit += downExit;
+        gameEvents.current.onMiddleEnter += middleEnter;
+        gameEvents.current.onMiddleExit += middleExit;
         gameEvents.current.onLWhistleButtonPress += operationL;
         gameEvents.current.onLWhistleButtonHold += emergencyL;
         gameEvents.current.onRWhistleButtonPress += operationR;
@@ -70,6 +73,10 @@ public class actions : MonoBehaviour
     bool forkDown;
     int LPalm;
     int RPalm;
+    int isMiddle;
+    int isDown;
+    bool isDownBool;
+    int downNumber;
     bool isWhistlingL;
     bool isWhistlingR;
     bool isWhistlingHoldL;
@@ -121,6 +128,38 @@ public class actions : MonoBehaviour
         }
         frontPalmR.text = isPalmFrontR.ToString();
     }
+    void middleEnter()
+    {
+        isMiddle++;
+        if (isMiddle == 2)
+            checkForkCombo();
+    }
+    void middleExit()
+    {
+        isMiddle--;
+    }
+    void downEnter()
+    {
+        downNumber++;
+        isDown++;
+        isDownBool = true;
+        if (isDown == 2)
+            checkForkCombo();
+        if (downNumber == 1)
+            downArrow.SetActive(true);
+        else if (downNumber == 2)
+            downArrowx2.SetActive(true);
+    }
+    void downExit()
+    {
+        downNumber--;
+        isDown--;
+        isDownBool = false;
+        if (downNumber == 0)
+            downArrow.SetActive(false);
+        else if (downNumber == 1)
+            downArrowx2.SetActive(false);
+    }
     bool awaytowardsWhistle;
     void farEnter()
     {
@@ -144,6 +183,61 @@ public class actions : MonoBehaviour
 
     int frontComboNum;
     bool isfront;
+    int forkComboNum;
+    void checkForkCombo()
+    {
+        if (!ismoving)
+        {
+            if (isMiddle == 2)
+            {
+                if (forkComboNum == 0)
+                    awaytowardsWhistle = false;
+                if (forkComboCoroutine != null)
+                {
+                    StopCoroutine(forkComboCoroutine);
+                }
+                forkComboCoroutine = StartCoroutine(forkComboWindow());
+                forkComboNum++;
+                if (LPalm == 1 && RPalm == 1)
+                {
+                    forkDown = false;
+                }
+                else if (LPalm == 2 && RPalm == 2)
+                {
+                    forkDown = true;
+                }
+            }
+            else if (isDown == 2)
+            {
+                if (forkComboCoroutine != null)
+                {
+                    StopCoroutine(forkComboCoroutine);
+                }
+                forkComboCoroutine = StartCoroutine(forkComboWindow());
+                forkComboNum++;
+            }
+            if (forkComboNum >= 2 && awaytowardsWhistle)
+            {
+                if (forkDown && awaytowardsWhistle)
+                {
+                    gameEvents.current.ForkUp(false);
+                }
+                else if (!forkDown && awaytowardsWhistle)
+                {
+                    gameEvents.current.ForkUp(true);
+                }
+                forkComboNum = 0;
+                awaytowardsWhistle = false;
+            }
+        }
+    }
+    IEnumerator forkComboWindow()
+    {
+        yield return new WaitForSeconds(1.5f);
+        forkComboNum = 0;
+        awaytowardsWhistle = false;
+        forkComboCoroutine = null;
+    }
     void checkFrontCombo()
     {
         if(!ismoving)
@@ -321,7 +415,7 @@ public class actions : MonoBehaviour
     private void FixedUpdate()
     {
         // movement 
-        Debug.Log(awaytowardsWhistle);
+        //Debug.Log(awaytowardsWhistle);
         if(GameObject.Find("carDirectionCheckCamera") != null)
         {
             GameObject.Find("carDirectionCheckCamera").transform.rotation = playerCamera.transform.rotation;
@@ -368,37 +462,13 @@ public class actions : MonoBehaviour
                     gameEvents.current.startOps();
                 }
             }
-            if (isFrontL && isFrontR && RPalm == LPalm && LPalm == 1)
-            {
-                PalmScanTime += 1;
-                if (PalmScanTime >= 100 && (isWhistlingL || isWhistlingR))
-                {
-                    awaytowardsWhistle = false;
-                    PalmScanTime = 0;
-                    gameEvents.current.ForkUp(true);
-                }
-            }
-            else if (isFrontL && isFrontR && RPalm == LPalm && LPalm == 2)
-            {
-                PalmScanTime += 1;
-                if (PalmScanTime >= 100)
-                {
-                    awaytowardsWhistle = false;
-                    PalmScanTime = 0;
-                    gameEvents.current.ForkUp(false);
-                }
-            }
-            else
-            {
-                PalmScanTime = 0;
-            }
 
             if ((!isLIn && !isRIn) || numHandsTop > 0)
                 slowNum = 0;
 
             else if (isLIn || isRIn)
             {
-                if (slowDownCombo[slowNum] == isDown)
+                if (slowDownCombo[slowNum] == isDownBool)
                 {/*
                 Debug.Log("combo: " + slowNum);*/
                     StopCoroutine(comboEnd());
@@ -472,10 +542,10 @@ public class actions : MonoBehaviour
         leftArrow.SetActive(true);
         if (isLIn && isRIn)
             trnsStart = true;
-        else if (isLIn && numHandsTop == 1)
+        else if (isLIn && numHandsTop == 1 && (isWhistlingL || isWhistlingR))
         {
-            gameEvents.current.turnLeft();
             awaytowardsWhistle = false;
+            gameEvents.current.turnLeft();
         }
     }
     void leftExit()
@@ -486,13 +556,17 @@ public class actions : MonoBehaviour
         leftArrow.SetActive(false);
     }
     void rightEnter()
-        {
+    {
         RHand.text = "1";
         
         isRIn = true;
         if (isLIn && isRIn)
             trnsStart = true;
-
+        else if (isRIn && numHandsTop == 1 && (isWhistlingL || isWhistlingR))
+        {
+            awaytowardsWhistle = false;
+            gameEvents.current.turnRight();
+        }
         rightArrow.SetActive(true);
 
     }
@@ -502,29 +576,6 @@ public class actions : MonoBehaviour
         RHand.text = "0";
         isRIn = false;
         rightArrow.SetActive(false);
-    }
-    bool isDown;
-    int downNumber;
-    void downEnter()
-    {
-        
-        downNumber += 1;
-        DHand.text = downNumber.ToString();
-        isDown = true;
-        if (downNumber == 1)
-            downArrow.SetActive(true);
-        else if (downNumber == 2)
-            downArrowx2.SetActive(true);
-    }
-    void downExit()
-    {
-        downNumber -= 1;
-        DHand.text = downNumber.ToString();
-        isDown = false;
-        if (downNumber == 0)
-            downArrow.SetActive(false);
-        else if (downNumber == 1)
-            downArrowx2.SetActive(false);
     }
     public TextMeshProUGUI insturctiontext;
     public Animator insturctionAni;

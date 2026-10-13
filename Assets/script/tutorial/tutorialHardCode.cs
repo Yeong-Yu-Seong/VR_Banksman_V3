@@ -26,11 +26,13 @@ public class tutorialHardCode : MonoBehaviour
     public List<GameObject> slides = new List<GameObject>();
     public List<AudioSource> audioLines = new List<AudioSource>();
     public GameObject audios;
+    Coroutine audioLoopCoroutine;
     IEnumerator firstAudioPlay()
     {
         yield return new WaitForSeconds(2.2f);
         audios.SetActive(true);
         audioLines[0].Play();
+        audioLoopCoroutine = StartCoroutine(audioLoop());
     }
     int audioNum;
     private void Update()
@@ -38,8 +40,6 @@ public class tutorialHardCode : MonoBehaviour
         gameEvents.current.canSeePlayer(true, true, true);
         trainerAni.SetInteger("talking", Random.Range(1, 3));
         tutorialHardCodeDisplay.text = tutorialHardCodeText[tutorialStepNum];
-        if (canPlayAudio)
-            StartCoroutine(audioLoop());
     }
     void visualiser()
     {
@@ -55,12 +55,14 @@ public class tutorialHardCode : MonoBehaviour
     void changeAudio()
     {
         StopAllCoroutines();
+        audioLoopCoroutine = null;
         audioNum++;
         for (int i = 0; i < audioLines.Count; i++)
         {
             audioLines[i].Stop();
         }
         canPlayAudio = true;
+        audioLoopCoroutine = StartCoroutine(audioLoop());
     }
     void TMoveTo()
     {
@@ -200,15 +202,10 @@ public class tutorialHardCode : MonoBehaviour
     bool canPlayAudio = true;
     IEnumerator audioLoop()
     {
-        canPlayAudio = false;
-        for (int i = 0; i < audioLines.Count; i++ )
+        while (true)
         {
-            if(i == audioNum)
-            {
-                audioLines[i].Play();
-            }
+            audioLines[audioNum].Play();
+            yield return new WaitForSeconds(15f);
         }
-        yield return new WaitForSeconds(15f);
-        canPlayAudio = true;
     }
 }

@@ -1,11 +1,26 @@
+// Disable this script if you are using a VR headset. This script is for testing the vehicle controls when you do not have a VR headset.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class keyboardVehicleTest : MonoBehaviour
 {
+    frontBackDedect frontBackDetect;
+    private void Start()
+    {
+        frontBackDetect = FindObjectOfType<frontBackDedect>();
+        if (frontBackDetect != null)
+        {
+            // For Editor Testing
+            frontBackDetect.isFacing = 1;
+        } else {
+            Debug.LogError("frontBackDetect script not found in the scene.");
+        }
+    }
     void Update()
     {
+        // For Editor Testing
+        frontBackDetect.isFacing = 1;
         // =========================
         // VEHICLE OPERATION
         // =========================

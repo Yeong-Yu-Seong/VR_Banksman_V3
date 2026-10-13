@@ -58,7 +58,7 @@ public class NPCWalkLevel2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        NNPCSight.SetActive(GetComponent<NavMeshAgent>().enabled);
+        NNPCSight.SetActive(true);
 
         npcAgent.enabled = !isStopTraffic;
         if (!toDespawn)

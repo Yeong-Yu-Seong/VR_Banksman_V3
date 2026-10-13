@@ -43,6 +43,10 @@ public class comandColliders : MonoBehaviour
         {
             gameEvents.current.FrontEnter(false);
         }
+        if (other.transform.tag == "hand" && transform.name == "middleCollider")
+        {
+            gameEvents.current.MiddleEnter();
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -81,6 +85,10 @@ public class comandColliders : MonoBehaviour
         if (transform.name == "frontCollider" && other.transform.name == "vr_glove_right_model_slim(Clone)")
         {
             gameEvents.current.FrontExit(false);
+        }
+        if (other.transform.tag == "hand" && transform.name == "middleCollider")
+        {
+            gameEvents.current.MiddleExit();
         }
     }
 }

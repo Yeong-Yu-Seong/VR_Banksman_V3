@@ -74,7 +74,7 @@ public class frontBackDedect : MonoBehaviour
         else
             gameEvents.current.giveInstruction("vehicle cannot move that direction");
     }
-    int isFacing;
+    public int isFacing;
     void FixedUpdate()
     {
         if (Physics.Raycast(transform.position, transform.forward, out hit, raycastLength))

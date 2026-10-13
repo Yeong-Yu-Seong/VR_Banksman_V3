@@ -77,6 +77,22 @@ public class gameEvents : MonoBehaviour
             onDownExit();
         }
     }
+    public event Action onMiddleEnter;
+    public void MiddleEnter()
+    {
+        if (onMiddleEnter != null)
+        {
+            onMiddleEnter();
+        }
+    }
+    public event Action onMiddleExit;
+    public void MiddleExit()
+    {
+        if (onMiddleExit != null)
+        {
+            onMiddleExit();
+        }
+    }
 
 
     public event Action<bool> onLWhistleButtonPress;
