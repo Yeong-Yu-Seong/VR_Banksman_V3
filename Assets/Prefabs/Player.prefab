@@ -1728,7 +1728,7 @@ MonoBehaviour:
   - Some people are less aware of their surroundings than others
   overShootList:
   - Safety Starts With Me
-  - Remember to stop the forklift in time
+  - Remember to stop the vehicle in time
   tip: {fileID: 1941117037052161576}
   playeerDeath: {fileID: 1421245296379210653}
   allCamera: []

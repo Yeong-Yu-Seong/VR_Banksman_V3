@@ -18,7 +18,7 @@ public class deathScreen : MonoBehaviour
     public List<string> overShootList = new List<string>();
     public TextMeshProUGUI tip;
     bool isLost;
-    void displayDeathScreen(string reason, int index)
+    public void displayDeathScreen(string reason, int index)
     {
         if (!isLost)
         {
