@@ -39,6 +39,7 @@ public class level1Sequence : MonoBehaviour
             if(triggerNum == 444 || triggerNum == 445)
             {
                 itemCrash.Play();
+                FindObjectOfType<deathScreen>().displayDeathScreen("You did not stop the vehicle in time", 3);
                 gameEvents.current.levelReset();
             }
             else
@@ -55,7 +56,7 @@ public class level1Sequence : MonoBehaviour
             if (triggerNum == 444 || triggerNum == 445)
             {
                 if (itemCrash != null)
-                gameEvents.current.deathScreenShow("You did not stop the vehicle in time", 3);
+                FindObjectOfType<deathScreen>().displayDeathScreen("You did not stop the vehicle in time", 3);
             }
             else
             {

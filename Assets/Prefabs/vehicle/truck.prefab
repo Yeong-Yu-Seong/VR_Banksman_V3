@@ -93,7 +93,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b5a8c614f5c003348b7d6685a77ad3e5,
         type: 3}
       propertyPath: m_Name
-      value: truckLo
+      value: truck
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267661367639208609, guid: b5a8c614f5c003348b7d6685a77ad3e5,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -102,7 +107,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 649405007646686313}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8385868139439392241, guid: b5a8c614f5c003348b7d6685a77ad3e5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3753746535140520280}
   m_SourcePrefab: {fileID: 100100000, guid: b5a8c614f5c003348b7d6685a77ad3e5, type: 3}
 --- !u!4 &2545938714456168416 stripped
 Transform:
@@ -110,6 +119,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2656636391180365835}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5818318788074108410 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8385868139439392241, guid: b5a8c614f5c003348b7d6685a77ad3e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2656636391180365835}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3753746535140520280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5818318788074108410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fff89cdfbbcaa24cbae8518c257b75a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _quality: 0.1
 --- !u!1001 &4057580219051925594
 PrefabInstance:
   m_ObjectHideFlags: 0
